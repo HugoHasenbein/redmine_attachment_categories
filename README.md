@@ -36,9 +36,20 @@ Plugin for Redmine. Add free configurable categories to attachments. In all atta
 
 ### Use
 
-* Go to Administration and find a new Attachment Categories Link. Click Attachment Categories and edit existing categories or create new one by providing a name and a color. Save the new created Attachmnet Categories.
+* Go to Administration and find a new Attachment Categories Link. 
 
-* in an issue click on the edit attachments link. Find to the right of the attachments dialog a new drop down list with your categories. As you choose the category changes to the left. Save your attachments.
+![PNG that shows edit attachment categories dialog](/doc/EditAttachmentCategories.png)
+
+Click Attachment Categories and edit existing categories or create new one by providing a name and a color. Save the new created Attachment Categories.
+
+* In an issue click on the edit attachments link. Find to the right of the attachments dialog a new drop down list with your categories. As you choose the category changes to the left. Save your attachments.
+
+![PNG that shows edit attachment form](/doc/EditAttachmentsForm.png)
+
+* In plugin settings choose category tag style
+
+![PNG that shows choose category tag style](/doc/ChooseStyle.png)
+
 
 In show issue see the category tag next to the attachment.
 
