@@ -1,6 +1,6 @@
 # redmine_attachment_categories
 
-Plugin for Redmine. Add free configurable categories to attachments. In all attachment views the category tag is shown next to the filename or the thumbnail. 
+Plugin for Redmine. Add free configurable categories to attachments. In all attachment views the category tag is shown next to the filename or the thumbnail. Also, it adds a suggestion auto complete for attachment description in edit attachment form.
 
 ![GIF that represents a quick overview](/doc/Overview.gif)
 
