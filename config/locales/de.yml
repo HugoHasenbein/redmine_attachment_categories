@@ -1,0 +1,51 @@
+# encoding: utf-8
+#
+# Redmine plugin for quick attribute setting of redmine issues
+#
+# Copyright © 2018 Stephan Wenzel <stephan.wenzel@drwpatent.de>
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+#
+
+# German translations for Ruby on Rails
+de:
+
+  # settings
+  label_configure_attchment_category_style: "Etiketten-Stil auswählen"
+  label_setting_default_tag: "Standard"
+  label_setting_other_tag: "Anderer Stil"
+  
+  label_example_text: "Beispieltext"
+  label_red_category: "Rote Kategorie"
+  label_green_category: "Grüne Kategorie"
+  label_blue_category: "Blaue Kategorie"
+  label_yellow_category: "Gelbe Kategorie"
+
+  # for use in attachments categories administration
+  label_attachments_categories_edit: "Attachment Kategorien"
+  label_attachment_category_plural: "Attachment Kategorien"
+  label_attachment_category_new: "Neue Kategorie"
+  label_attachments_this_category: "Kategorisiert"
+  label_no_categories_defined: "keine Kategorien definiert"
+  label_create_categories: "Kategorien definieren"
+  label_other: "(Andere)"
+  label_uncategorized: "(ohne Tag)"
+ 
+  field_html_color: "Tag (Etikett)"
+  error_unable_delete_attachment_category: "Kategorie konnte wegen eines Fehlers nicht gelöscht werden"
+  notice_attachment_colors_not_updated: "Attachment-Farben wurden nicht aktualisiert"
+  notice_attachment_colors_updated: "Attachment-Farben wurden aktualisiert"
+
+

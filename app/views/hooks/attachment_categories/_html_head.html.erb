@@ -1,0 +1,23 @@
+<%= stylesheet_link_tag :redmine_attachment_categories, :plugin => 'redmine_attachment_categories' %>
+<script type="text/javascript" charset="utf-8">
+  <%- html_colors = AttachmentCategory.all.collect { |p| [p.id, p.html_color]}  %>
+  <%- html_colors_array = "{"
+      html_colors.each do |html_color|
+		html_colors_array << "\"#{h html_color[0]}\""
+		html_colors_array << ":"
+		html_colors_array << "\"#{h html_color[1]}\", "
+      end
+      html_colors_array << "}"
+  %>
+  
+  var html_colors = <%= html_colors_array.html_safe %>;
+  function changeCategoryColor(element) {
+    if($(element).val() != null && $(element).val() != "") {
+      $(element.closest("span")).css("background-color", html_colors[$(element).val()]);
+      /* $(element.closest("span")).children().css("background-color", html_colors[$(element).val()]); */
+    } else {
+      $(element.closest("span")).css("background-color", "");
+      /* $(element.closest("span")).children().css("background-color", ""); */
+    }
+  }
+</script>

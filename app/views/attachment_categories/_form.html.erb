@@ -1,0 +1,8 @@
+<%= error_messages_for 'attachment_category' %>
+
+<div class="box tabular">
+<p><%= f.text_field :name, :required => true %></p>
+<p><%= f.text_field :html_color, :required => true, :class => "color {hash:true}" %></p>
+
+</div>
+<%= javascript_include_tag "jscolor.js", :plugin => "redmine_attachment_categories" %>

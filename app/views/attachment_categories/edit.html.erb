@@ -1,0 +1,6 @@
+<%= title [l(:label_attachment_category_plural), attachment_categories_path], @attachment_category.name %>
+
+<%= labelled_form_for @attachment_category do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= submit_tag l(:button_save) %>
+<% end %>

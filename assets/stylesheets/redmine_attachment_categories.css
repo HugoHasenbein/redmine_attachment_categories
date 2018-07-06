@@ -1,0 +1,30 @@
+div.attachment_categories_column {
+    text-align: center;
+}
+
+.attachment_category {
+    font-family: "Trebuchet MS", Verdana, sans-serif;
+}
+
+.attachment_category_style_default {
+    position: relative;
+    bottom: 2px;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 0px 2px 0px 2px;
+    font-size: 75%;
+    margin-right: 2px;
+    margin-left: 2px;
+    border-radius: 2px;
+}
+
+.attachment_category_style_other {
+    border: solid grey 1px;
+    border-radius: 6px;
+    padding: 0px 2px 0px 2px;
+    margin: 2px 5px 2px 5px;
+}
+
+div.thumbnails div {
+    text-align: center;
+}

@@ -1,0 +1,20 @@
+var fileSpan = $('#attachments_<%= j params[:attachment_id] %>');
+
+<% if @attachment.new_record? %>
+  fileSpan.hide();
+  alert("<%= escape_javascript @attachment.errors.full_messages.join(', ') %>");
+<% else %>
+  $('<input>', { type: 'hidden', name: 'attachments[<%= j params[:attachment_id] %>][token]' } ).val('<%= j @attachment.token %>').appendTo(fileSpan);
+  fileSpan.prepend('<%= j content_tag(:div, link_to( image_tag(thumbnail_path(@attachment), :style => "border: 1px #ccc solid; width: #{@thumbnail_size}px;", :title => @attachment.filename), named_attachment_path(@attachment, @attachment.filename) ), :style => "width: #{@thumbnail_size}px; float: left;") %>');
+  <%- categories = AttachmentCategory.all.collect { |p| [p.name, p.id]}  %>
+  fileSpan.append('<%= j select_tag "attachments[#{j params[:attachment_id]}][attachment_category_id]", options_for_select([['', '']] + categories, @attachment.attachment_category_id), :onchange => "changeCategoryColor(this)" %>' );
+  changeCategoryColor($('#attachments_<%= "#{j params[:attachment_id]}" %>_attachment_category_id'));
+  fileSpan.append('<%= content_tag(:div, "", :style => "clear: both;") %>' );
+  fileSpan.find('a.remove-upload')
+	.attr({
+	  "data-remote": true,
+	  "data-method": 'delete',
+	  href: '<%= j attachment_path(@attachment, :attachment_id => params[:attachment_id], :format => 'js') %>'
+	})
+	.off('click');
+<% end %>

@@ -1,0 +1,51 @@
+# encoding: utf-8
+#
+# Redmine plugin for quick attribute setting of redmine issues
+#
+# Copyright © 2018 Stephan Wenzel <stephan.wenzel@drwpatent.de>
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+#
+
+# German translations for Ruby on Rails
+en:
+
+  # settings
+  label_configure_attchment_category_style: "Choose tag style"
+  label_setting_default_tag: "Standard"
+  label_setting_other_tag: "Other style"
+  
+  label_example_text: "Exampletext"
+  label_red_category: "Red Category"
+  label_green_category: "Green Category"
+  label_blue_category: "Blue Category"
+  label_yellow_category: "Yellow Category"
+
+  # for use in attachments categories administration
+  label_attachments_categories_edit: "Attachment categories"
+  label_attachment_category_plural: "Attachment categories"
+  label_attachment_category_new: "New category"
+  label_attachments_this_category: "categorized"
+  label_no_categories_defined: "Bo categories defined"
+  label_create_categories: "Define categories "
+  label_other: "(other)"
+  label_uncategorized: "(untagged)"
+ 
+  field_html_color: "Tag"
+  error_unable_delete_attachment_category: "Category could not be deleted due to an error"
+  notice_attachment_colors_not_updated: "Attachment-colors were not updated"
+  notice_attachment_colors_updated: "Attachment-colors successfully updated"
+
+
