@@ -7,7 +7,7 @@ function addFile(inputEl, file, eagerUpload) {
 
     var attachmentId = addFile.nextAttachmentId++;
 
-    var fileSpan = $('<span>', { id: 'attachments_' + attachmentId });
+    var fileSpan = $('<span>', { id: 'attachments_' + attachmentId, style: 'display:block;' });
 
     fileSpan.append(
         $('<input>', { type: 'text', 'class': 'filename',    name: 'attachments[' + attachmentId + '][filename]',    maxlength: 255 }).val(file.name),

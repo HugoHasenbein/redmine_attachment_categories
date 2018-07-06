@@ -74,7 +74,7 @@ module AttachmentCategories
                                  }.merge(html_options)
             else
               _tag = content_tag tag, 
-                                 "",
+                                 "&nbsp;".html_safe,
                                  {:class => "attachment_category "
                                  }.merge(html_options)
             end 
