@@ -50,8 +50,9 @@ Click Attachment Categories and edit existing categories or create new one by pr
 
 ![PNG that shows choose category tag style](/doc/ChooseStyle.png)
 
+* In show issue see the category tag next to the attachment.
 
-In show issue see the category tag next to the attachment.
+![PNG that shows issue attachments with tags](/doc/IssueAttachments.png)
 
 **Have fun!**
 
