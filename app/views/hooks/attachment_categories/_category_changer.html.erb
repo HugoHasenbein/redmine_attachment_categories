@@ -1,0 +1,20 @@
+<script type="text/javascript" charset="utf-8">
+  function changeCategoryColor(element, common_parent="tr") {
+	var cloned_tag;
+	if($(element).val() != null && $(element).val() != "") {
+	  cloned_tag = $( "#attachment_category-" + $(element).val() ).clone();
+	} else {
+	  cloned_tag = $( "#attachment_category-nil").clone();
+	}
+	$(element.closest(common_parent)).find(".attachment_category").replaceWith( cloned_tag );
+	$(element.closest(common_parent)).find(".attachment_category").removeAttr( "id" );
+  }
+</script>
+<div attachment_categories style="display:none;">
+<%- 
+attachment_categories = AttachmentCategory.all
+attachment_categories.each do |attachment_category| %>
+<%= attachment_category_tag(attachment_category, :span, {:id => "attachment_category-#{attachment_category.id}"}) %>
+<%- end %>
+<%= attachment_category_tag(nil, :span, {:id => "attachment_category-nil"}) %>
+</div>

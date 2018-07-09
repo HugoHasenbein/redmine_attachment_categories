@@ -19,20 +19,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
-Rails.configuration.to_prepare do
-
-  # redmine core plugin
-  require 'redmine_attachment_categories/patches/acts_as_attachable_patch'
-
-  # patch helpers and controllers  
-  require 'redmine_attachment_categories/patches/application_helper_patch'  
-  require 'redmine_attachment_categories/patches/attachment_patch'
-  require 'redmine_attachment_categories/patches/attachments_controller_patch'
-  require 'redmine_attachment_categories/patches/auto_completes_controller_patch'
-   
-  # link hooks
-  require 'redmine_attachment_categories/hooks/layout_base_hook'
-  require 'redmine_attachment_categories/hooks/view_issues_edit_notes_bottom'
-
+module RedmineAttachmentCategories
+  module Hooks
+    class LayoutBaseHook < Redmine::Hook::ViewListener
+      render_on :view_layouts_base_html_head, :partial => 'hooks/attachment_categories/html_head'
+    end
+  end
 end
-

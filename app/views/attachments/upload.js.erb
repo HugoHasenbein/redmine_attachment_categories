@@ -2,7 +2,7 @@
   _file_or_thumbnail = j content_tag( 
 	:div, 
 	@attachment.thumbnailable? ? 
-	  thumbnail_tag_with_attachment_category( @attachment ) : 
+	  thumbnail_tag( @attachment ) : 
 	  attachment_category_tag( @attachment.attachment_category, :span ),
 	{:class => "attachment_categories_column",
 	 :style => "width:#{Setting.thumbnails_size.to_i}px;float:left;"
@@ -26,16 +26,18 @@ var fileSpan = $('#attachments_<%= j params[:attachment_id] %>');
   
 <% else %>
 
+  fileSpan.attr("style", "display:block;" );
   fileSpan.prepend('<%= _file_or_thumbnail %>');
   fileSpan.append( $('<input>', { type: 'hidden', name: 'attachments[<%= j params[:attachment_id] %>][token]' } ).val('<%= j @attachment.token %>') );
   fileSpan.append('<%= _select_tag %>' );
-  fileSpan.append('<%= content_tag(:div, " ", :style => "clear: both;") %>' );
+  fileSpan.append('<%= content_tag(:div, "", :style => "clear: both;") %>' );
   
   changeCategoryColor($('<%= "#attachments_#{j params[:attachment_id]}_attachment_category_id" %>'), '<%= "#attachments_#{params[:attachment_id]}" %>');
   fileSpan.find('a.remove-upload') 
 	.attr({
 	  "data-remote": true,
 	  "data-method": 'delete',
+	  "style": "display:inline-block;",
 	  href: '<%= j attachment_path(@attachment, :attachment_id => params[:attachment_id], :format => 'js') %>'
 	})
 	.off('click');

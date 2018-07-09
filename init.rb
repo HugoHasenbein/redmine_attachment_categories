@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-# Redmine plugin for quick attribute setting of redmine issues
+# Redmine plugin for having a category tag on attachments
 #
 # Copyright © 2018 Stephan Wenzel <stephan.wenzel@drwpatent.de>
 #
@@ -22,7 +22,7 @@
 Redmine::Plugin.register :redmine_attachment_categories do
   name 'Attachment Categories'
   author 'Stephan Wenzel'
-  description 'This is a plugin for Redmine providing attachment categories'
+  description 'This is a plugin for Redmine for having a category tag on attachments'
   version '1.0.2'
   url 'https://github.com/HugoHasenbein/redmine_attachment_categories'
   author_url 'https://github.com/HugoHasenbein/redmine_attachment_categories'

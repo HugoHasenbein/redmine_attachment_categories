@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-# Redmine plugin for quick attribute setting of redmine issues
+# Redmine plugin for having a category tag on attachments
 #
 # Copyright © 2018 Stephan Wenzel <stephan.wenzel@drwpatent.de>
 #
@@ -19,7 +19,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
-module AttachmentCategories
+module RedmineAttachmentCategories
   module Patches
     module AutoCompletesControllerPatch
       def self.included(base)
@@ -58,6 +58,6 @@ module AttachmentCategories
 end #module
 
 
-unless AutoCompletesController.included_modules.include?(AttachmentCategories::Patches::AutoCompletesControllerPatch)
-    AutoCompletesController.send(:include, AttachmentCategories::Patches::AutoCompletesControllerPatch)
+unless AutoCompletesController.included_modules.include?(RedmineAttachmentCategories::Patches::AutoCompletesControllerPatch)
+    AutoCompletesController.send(:include, RedmineAttachmentCategories::Patches::AutoCompletesControllerPatch)
 end

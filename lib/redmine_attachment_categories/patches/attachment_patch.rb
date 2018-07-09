@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-# Redmine plugin for quick attribute setting of redmine issues
+# Redmine plugin for having a category tag on attachments
 #
 # Copyright © 2018 Stephan Wenzel <stephan.wenzel@drwpatent.de>
 #
@@ -19,11 +19,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
-module AttachmentCategories
+module RedmineAttachmentCategories
   module Patches
     module AttachmentPatch
       def self.included(base)
-#        base.send(:include, InstanceMethods)
 
         base.class_eval do
           unloadable
@@ -67,14 +66,11 @@ module AttachmentCategories
 
         end
       end
-
-#       module InstanceMethods
-#       end
       
     end
   end  
 end
 
-unless Attachment.included_modules.include?(AttachmentCategories::Patches::AttachmentPatch)
-    Attachment.send(:include, AttachmentCategories::Patches::AttachmentPatch)
+unless Attachment.included_modules.include?(RedmineAttachmentCategories::Patches::AttachmentPatch)
+    Attachment.send(:include, RedmineAttachmentCategories::Patches::AttachmentPatch)
 end

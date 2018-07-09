@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-# Redmine plugin for quick attribute setting of redmine issues
+# Redmine plugin for having a category tag on attachments
 #
 # Copyright © 2018 Stephan Wenzel <stephan.wenzel@drwpatent.de>
 #
@@ -19,21 +19,56 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
-module AttachmentCategories
+module RedmineAttachmentCategories
   module Patches 
     module ApplicationHelperPatch
+
       def self.included(base)
-#        base.extend(ClassMethods)
+        base.extend(ClassMethods)
         base.send(:include, InstanceMethods)
         base.class_eval do
 
           unloadable 
-          
           alias_method_chain :thumbnail_tag, :attachment_category
           alias_method_chain :link_to_attachment, :attachment_category
-            
+
+
+          # ------------------------------------------------------------------------------#
+          # creates an attachment_category_tag
+          # ------------------------------------------------------------------------------#
+          def attachment_category_tag(attachment_category, tag, html_options={})
+            if attachment_category.present?
+              _css_color = contrast_css_color( attachment_category.html_color )
+              _tag = content_tag tag, 
+                                 h(attachment_category.name),
+                                 {:class => "attachment_category " + Setting['plugin_redmine_attachment_categories']['attachment_category_style'].presence || "attachment_category_default",
+                                  :style => "background:#{attachment_category.html_color};color:#{_css_color};"
+                                 }.merge(html_options)
+            else
+              _tag = content_tag tag, 
+                                 "&nbsp;".html_safe,
+                                 {:class => "attachment_category "
+                                 }.merge(html_options)
+            end 
+            _tag.html_safe
+          end #def
+
+          # ------------------------------------------------------------------------------#
+          # calculates black or white font-color for a given background color
+          # ------------------------------------------------------------------------------#
+          def contrast_css_color( _html_color )
+            begin
+              _rgb = _html_color.downcase.scan(/[0-9a-f]{2}/).map(&:hex)
+              (0.213 * _rgb[0] + 0.715 * _rgb[1] + 0.072 * _rgb[2])/255 > 0.5 ? "black" : "white"
+            rescue
+              "black"
+            end
+          end #def
+
         end #base
+
       end #self
+
 
       module InstanceMethods    
 
@@ -60,48 +95,18 @@ module AttachmentCategories
             thumbnail_tag_without_attachment_category(attachment) + ( options.key?(:no_attribute_tag) ? "" : "<br />".html_safe + attachment_category_tag(attachment.attachment_category, :span) )
           end
 
-          # ------------------------------------------------------------------------------#
-          # creates an attachment_category_tag
-          # 
-          # ------------------------------------------------------------------------------#
-          def attachment_category_tag(attachment_category, tag, html_options={})
-            if attachment_category.present?
-              _css_color = contrast_css_color( attachment_category.html_color )
-              _tag = content_tag tag, 
-                                 h(attachment_category.name),
-                                 {:class => "attachment_category " + Setting['plugin_redmine_attachment_categories']['attachment_category_style'].presence || "attachment_category_default",
-                                  :style => "background:#{attachment_category.html_color};color:#{_css_color};"
-                                 }.merge(html_options)
-            else
-              _tag = content_tag tag, 
-                                 "&nbsp;".html_safe,
-                                 {:class => "attachment_category "
-                                 }.merge(html_options)
-            end 
-            _tag.html_safe
-          end #def
-
-          def contrast_css_color( _html_color )
-            begin
-              _rgb = _html_color.downcase.scan(/[0-9a-f]{2}/).map(&:hex)
-              (0.213 * _rgb[0] + 0.715 * _rgb[1] + 0.072 * _rgb[2])/255 > 0.5 ? "black" : "white"
-            rescue
-              "black"
-            end
-          end #def
-          
-          
-      end #module
+       end #module
       
-#       module ClassMethods
-#       end #module
+       module ClassMethods
+
+       end #module
       
     end #module
   end #module
 end #module
 
-unless ApplicationHelper.included_modules.include?(AttachmentCategories::Patches::ApplicationHelperPatch)
-    ApplicationHelper.send(:include, AttachmentCategories::Patches::ApplicationHelperPatch)
+unless ApplicationHelper.included_modules.include?(RedmineAttachmentCategories::Patches::ApplicationHelperPatch)
+    ApplicationHelper.send(:include, RedmineAttachmentCategories::Patches::ApplicationHelperPatch)
 end
 
 

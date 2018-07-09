@@ -1,24 +1,4 @@
 <h2><%= l(:label_edit_attachments) %></h2> 
-<script type="text/javascript" charset="utf-8">
-  function changeCategoryColor(element) {
-	var cloned_tag;
-	if($(element).val() != null && $(element).val() != "") {
-	  cloned_tag = $( "#attachment_category-" + $(element).val() ).clone();
-	} else {
-	  cloned_tag = $( "#attachment_category-nil").clone();
-	}
-	$(element.closest("tr")).find(".attachment_category").replaceWith( cloned_tag );
-	$(element.closest("tr")).find(".attachment_category").removeAttr( "id" );
-  }
-</script>
-<div attachment_categories style="display:none;">
-<%- 
-attachment_categories = AttachmentCategory.all
-attachment_categories.each do |attachment_category| %>
-<%= attachment_category_tag(attachment_category, :span, {:id => "attachment_category-#{attachment_category.id}"}) %>
-<%- end %>
-<%= attachment_category_tag(nil, :span, {:id => "attachment_category-nil"}) %>
-</div>
 <%= error_messages_for *@attachments %>
 
 <%= form_tag(container_attachments_path(@container), :method => 'patch') do %>
@@ -30,7 +10,7 @@ attachment_categories.each do |attachment_category| %>
       <td>
 		<div class="attachment_categories_column" style="<%= "width:#{@thumbnail_size}px;" %>">
 		<%- if attachment.thumbnailable? %>
-		  <%= thumbnail_tag_with_attachment_category( attachment ) %>
+		  <%= thumbnail_tag( attachment ) %>
 		<%- else %>
 		  <%= attachment_category_tag(attachment.attachment_category, :span) %>
 		<%- end %>
@@ -60,3 +40,5 @@ attachment_categories.each do |attachment_category| %>
     <%= link_to l(:button_cancel), back_url if back_url.present? %>
   </p>
 <% end %>
+<%= render "hooks/attachment_categories/category_changer" %>
+
