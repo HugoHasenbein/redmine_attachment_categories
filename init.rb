@@ -23,7 +23,7 @@ Redmine::Plugin.register :redmine_attachment_categories do
   name 'Attachment Categories'
   author 'Stephan Wenzel'
   description 'This is a plugin for Redmine for having a category tag on attachments'
-  version '1.0.2'
+  version '1.0.3'
   url 'https://github.com/HugoHasenbein/redmine_attachment_categories'
   author_url 'https://github.com/HugoHasenbein/redmine_attachment_categories'
   

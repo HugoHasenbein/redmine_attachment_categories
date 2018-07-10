@@ -37,7 +37,7 @@ var fileSpan = $('#attachments_<%= j params[:attachment_id] %>');
 	.attr({
 	  "data-remote": true,
 	  "data-method": 'delete',
-	  "style": "display:inline-block;",
+	  "style": "",
 	  href: '<%= j attachment_path(@attachment, :attachment_id => params[:attachment_id], :format => 'js') %>'
 	})
 	.off('click');

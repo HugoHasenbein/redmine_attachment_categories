@@ -8,7 +8,7 @@
   <% @attachments.each do |attachment| %>
     <tr id="attachment-<%= attachment.id %>">
       <td>
-		<div class="attachment_categories_column" style="<%= "width:#{@thumbnail_size}px;" %>">
+		<div class="attachment_categories_column" style="<%= "width:#{(Setting.thumbnails_size.to_i*1.5).to_i}px;" %>">
 		<%- if attachment.thumbnailable? %>
 		  <%= thumbnail_tag( attachment ) %>
 		<%- else %>
