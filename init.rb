@@ -19,6 +19,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
+require 'redmine'
+
 Redmine::Plugin.register :redmine_attachment_categories do
   name 'Attachment Categories'
   author 'Stephan Wenzel'
@@ -32,12 +34,13 @@ Redmine::Plugin.register :redmine_attachment_categories do
                         },
            :partial => 'settings/redmine_attachment_categories/plugin_settings'
 
-  # this adds attachmnent categories to the administration menu
+  # this adds attachment categories to the administration menu
   menu :admin_menu, 
-       :attachments_categories_edit, # name and id
+       :attachment_categories, # name and id
        { controller: 'attachment_categories', action: 'index' },
-       html:    { class: 'icon icon-attachment' },
-       caption: :label_attachments_categories_edit
+       after:   :enumerations, 
+  	   html:    { class: 'icon icon-attachment' },
+       caption: :label_attachment_category_plural
 
   # permissions 
   project_module :redmine_attachment_categories do

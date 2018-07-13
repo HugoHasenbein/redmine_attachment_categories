@@ -32,7 +32,6 @@ Rails.configuration.to_prepare do
    
   # link hooks
   require 'redmine_attachment_categories/hooks/layout_base_hook'
-  require 'redmine_attachment_categories/hooks/view_issues_edit_notes_bottom'
 
 end
 

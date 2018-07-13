@@ -20,7 +20,9 @@
 #
 
 class AttachmentCategoriesController < ApplicationController
+
   layout 'admin'
+  self.main_menu = false
 
   before_filter :require_admin, :except => :index
   before_filter :require_admin_or_api_request, :only => :index

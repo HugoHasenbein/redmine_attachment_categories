@@ -5,7 +5,7 @@
 	  thumbnail_tag( @attachment ) : 
 	  attachment_category_tag( @attachment.attachment_category, :span ),
 	{:class => "attachment_categories_column",
-	 :style => "width:#{Setting.thumbnails_size.to_i}px;float:left;"
+	 :style => "width:#{Setting.thumbnails_size.to_i*2}px;float:left;word-break:break-all;"
 	} 
   )
   
@@ -26,13 +26,7 @@ var fileSpan = $('#attachments_<%= j params[:attachment_id] %>');
   
 <% else %>
 
-  fileSpan.attr("style", "display:block;" );
-  fileSpan.prepend('<%= _file_or_thumbnail %>');
-  fileSpan.append( $('<input>', { type: 'hidden', name: 'attachments[<%= j params[:attachment_id] %>][token]' } ).val('<%= j @attachment.token %>') );
-  fileSpan.append('<%= _select_tag %>' );
-  fileSpan.append('<%= content_tag(:div, "", :style => "clear: both;") %>' );
-  
-  changeCategoryColor($('<%= "#attachments_#{j params[:attachment_id]}_attachment_category_id" %>'), '<%= "#attachments_#{params[:attachment_id]}" %>');
+  fileSpan.find('input.token').val('<%= j @attachment.token %>');
   fileSpan.find('a.remove-upload') 
 	.attr({
 	  "data-remote": true,
@@ -41,5 +35,17 @@ var fileSpan = $('#attachments_<%= j params[:attachment_id] %>');
 	  href: '<%= j attachment_path(@attachment, :attachment_id => params[:attachment_id], :format => 'js') %>'
 	})
 	.off('click');
+
+  fileSpan.attr("style", "display:block;" );
+  fileSpan.prepend('<%= _file_or_thumbnail %>');
+  fileSpan.append('<%= _select_tag %>' );
+  fileSpan.append('<%= content_tag(:div, "", :style => "clear: both;") %>' );
+  fileSpan.find('input.description').attr("id", '<%= "attachments_p#{j params[:attachment_id]}_description" %>');
+  
+  observeAutocompleteField('<%= "attachments_p#{j params[:attachment_id]}_description" %>', '<%= "#{auto_complete_attachment_descriptions_path}" %>');
+  changeCategoryColor($('<%= "#attachments_#{j params[:attachment_id]}_attachment_category_id" %>'), '<%= "#attachments_#{params[:attachment_id]}" %>');
+
 	
 <% end %>
+
+
