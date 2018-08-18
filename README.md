@@ -12,15 +12,15 @@ Plugin for Redmine. Add free configurable categories to attachments. In all atta
 
 ### Install
 
-1. go to plugins folder
-
-`git clone https://github.com/HugoHasenbein/redmine_attachment_categories.git`
+1. download plugin and copy plugin folder redmine_attachment_categories go to Redmine's plugins folder
 
 2. go to redmine root folder
 
 `bundle exec rake redmine:plugins:migrate RAILS_ENV=production NAME=redmine_attachment_categories`
 
-3. restart server f.i.  `sudo /etc/init.s/apache2 restart`
+3. restart server f.i.  
+
+`sudo /etc/init.d/apache2 restart`
 
 ### Uninstall
 
@@ -28,11 +28,13 @@ Plugin for Redmine. Add free configurable categories to attachments. In all atta
 
 `bundle exec rake redmine:plugins:migrate RAILS_ENV=production NAME=redmine_attachment_categories VERSION=0`
 
-2. go to plugins folder
+2. go to plugins folder, delete plugin folder redmine_attachment_categories
 
 `rm -r redmine_attributes_quickies`
 
-3. restart server f.i.  `sudo /etc/init.s/apache2 restart`
+3. restart server f.i.  
+
+`sudo /etc/init.d/apache2 restart`
 
 ### Use
 

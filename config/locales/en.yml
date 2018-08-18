@@ -44,6 +44,7 @@ en:
   label_uncategorized: "(untagged)"
  
   field_html_color: "Tag"
+  field_attachment_category: "Category" #needed for other plugins (i.e. Redmine Issue Attachments)
   error_unable_delete_attachment_category: "Category could not be deleted due to an error"
   notice_attachment_colors_not_updated: "Attachment-colors were not updated"
   notice_attachment_colors_updated: "Attachment-colors successfully updated"

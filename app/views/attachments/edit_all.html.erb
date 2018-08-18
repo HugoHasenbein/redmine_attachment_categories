@@ -7,7 +7,7 @@
   <table>
   <% @attachments.each do |attachment| %>
     <tr id="attachment-<%= attachment.id %>">
-      <td>
+      <td style="vertical-align:top;">
 		<div class="attachment_categories_column" style="<%= "width:#{(Setting.thumbnails_size.to_i*1.5).to_i}px;" %>">
 		<%- if attachment.thumbnailable? %>
 		  <%= thumbnail_tag( attachment ) %>
@@ -16,16 +16,16 @@
 		<%- end %>
 		</div>
       </td>
-      <td><%= text_field_tag "attachments[#{attachment.id}][filename]", attachment.filename, :size => 40 %></td>
-      <td>
+      <td style="vertical-align:top;"><%= text_field_tag "attachments[#{attachment.id}][filename]", attachment.filename, :size => 40 %></td>
+      <td style="vertical-align:top;">
         <%= text_field_tag "attachments[#{attachment.id}][description]", attachment.description, :size => 40, :placeholder => l(:label_optional_description) %>
         <%= javascript_tag "observeAutocompleteField('attachments_#{attachment.id}_description', '#{auto_complete_attachment_descriptions_path(@container.project)}')".html_safe %>
       </td>
-      <td>
+      <td style="vertical-align:top;">
 		<%- categories = AttachmentCategory.all.collect { |p| [p.name, p.id]}  %>
 		<%= select_tag "attachments[#{attachment.id}][attachment_category_id]", options_for_select([['', '']] + categories, attachment.attachment_category_id), :onchange => "changeCategoryColor(this)" %>
       </td>
-      <td><%= link_to l(:button_delete), attachment_path(attachment),
+      <td style="vertical-align:top;"><%= link_to l(:button_delete), attachment_path(attachment),
 						:data => {:confirm => l(:text_are_you_sure)},
 						:method => :delete,
 						:class => 'delete icon-only icon-del',

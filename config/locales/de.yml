@@ -44,6 +44,7 @@ de:
   label_uncategorized: "(ohne Tag)"
  
   field_html_color: "Tag (Etikett)"
+  field_attachment_category: "Kategorie" #needed for other plugins (i.e. Redmine Issue Attachments)
   error_unable_delete_attachment_category: "Kategorie konnte wegen eines Fehlers nicht gelöscht werden"
   notice_attachment_colors_not_updated: "Attachment-Farben wurden nicht aktualisiert"
   notice_attachment_colors_updated: "Attachment-Farben wurden aktualisiert"
