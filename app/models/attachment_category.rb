@@ -27,7 +27,7 @@ class AttachmentCategory < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
   validates_length_of :name, :maximum => 60
-  attr_protected :id
+  # attr_protected :id
 
   scope :sorted, lambda { order(:position) }
   scope :categorized, lambda {|arg| where("LOWER(#{table_name}.name) = LOWER(?)", arg.to_s.strip)}
@@ -37,7 +37,7 @@ class AttachmentCategory < ActiveRecord::Base
   end
 
   def to_s; name end
-  
+
   private
 
   def check_integrity

@@ -24,14 +24,14 @@ class AttachmentCategoriesController < ApplicationController
   layout 'admin'
   self.main_menu = false
 
-  before_filter :require_admin, :except => :index
-  before_filter :require_admin_or_api_request, :only => :index
+  before_action :require_admin, except: :index
+  before_action :require_admin_or_api_request, only: :index
   accept_api_auth :index
 
   def index
     @attachment_categories = AttachmentCategory.sorted.to_a
     respond_to do |format|
-      format.html { render :layout => false if request.xhr? }
+      format.html { render layout: false if request.xhr? }
       format.api
     end
   end
@@ -41,12 +41,12 @@ class AttachmentCategoriesController < ApplicationController
   end
 
   def create
-    @attachment_category = AttachmentCategory.new(params[:attachment_category])
+    @attachment_category = AttachmentCategory.new(permitted_attributes)
     if @attachment_category.save
       flash[:notice] = l(:notice_successful_create)
       redirect_to attachment_categories_path
     else
-      render :action => 'new'
+      render action: 'new'
     end
   end
 
@@ -56,18 +56,18 @@ class AttachmentCategoriesController < ApplicationController
 
   def update
     @attachment_category = AttachmentCategory.find(params[:id])
-    if @attachment_category.update_attributes(params[:attachment_category])
+    if @attachment_category.update_attributes(permitted_attributes)
       respond_to do |format|
         format.html {
           flash[:notice] = l(:notice_successful_update)
-          redirect_to attachment_categories_path(:page => params[:page])
+          redirect_to attachment_categories_path(page: params[:page])
         }
-        format.js { render :nothing => true }
+        format.js { render nothing: true }
       end
     else
       respond_to do |format|
-        format.html { render :action => 'edit' }
-        format.js { render :nothing => true, :status => 422 }
+        format.html { render action: 'edit' }
+        format.js { render nothing: true, status: 422 }
       end
     end
   end
@@ -87,5 +87,11 @@ class AttachmentCategoriesController < ApplicationController
       flash[:error] =  l(:error_attachment_colors_not_updated)
     end
     redirect_to attachment_categories_path
+  end
+
+  private
+
+  def permitted_attributes
+    params.require(:attachment_category).permit(:name, :html_color)
   end
 end

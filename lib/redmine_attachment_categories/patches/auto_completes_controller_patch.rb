@@ -27,7 +27,7 @@ module RedmineAttachmentCategories
 
         base.class_eval do
           unloadable
-          skip_before_filter :find_project, :only => [:attachment_descriptions]
+          skip_before_action :find_project, :only => [:attachment_descriptions]
         end
       end
 
@@ -49,9 +49,9 @@ module RedmineAttachmentCategories
 			end
 			@attachments.compact!
 		  end
-          render :layout => false 
+          render :layout => false
         end #def
-         
+
       end #module
     end #module
   end #module

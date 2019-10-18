@@ -20,7 +20,7 @@
 #
 
 module RedmineAttachmentCategories
-  module Patches 
+  module Patches
     module ApplicationHelperPatch
 
       def self.included(base)
@@ -28,10 +28,12 @@ module RedmineAttachmentCategories
         base.send(:include, InstanceMethods)
         base.class_eval do
 
-          unloadable 
-          alias_method_chain :thumbnail_tag, :attachment_category
-          alias_method_chain :link_to_attachment, :attachment_category
+          unloadable
 
+          alias_method :thumbnail_tag_without_attachment_category, :thumbnail_tag
+          alias_method :thumbnail_tag, :thumbnail_tag_with_attachment_category
+          alias_method :link_to_attachment_without_attachment_category, :link_to_attachment
+          alias_method :link_to_attachment, :link_to_attachment_with_attachment_category
 
           # ------------------------------------------------------------------------------#
           # creates an attachment_category_tag
@@ -39,17 +41,17 @@ module RedmineAttachmentCategories
           def attachment_category_tag(attachment_category, tag, html_options={})
             if attachment_category.present?
               _css_color = contrast_css_color( attachment_category.html_color )
-              _tag = content_tag tag, 
+              _tag = content_tag tag,
                                  h(attachment_category.name),
                                  {:class => "attachment_category " + Setting['plugin_redmine_attachment_categories']['attachment_category_style'].presence || "attachment_category_default",
                                   :style => "background:#{attachment_category.html_color};color:#{_css_color};"
                                  }.merge(html_options)
             else
-              _tag = content_tag tag, 
+              _tag = content_tag tag,
                                  "&nbsp;".html_safe,
                                  {:class => "attachment_category "
                                  }.merge(html_options)
-            end 
+            end
             _tag.html_safe
           end #def
 
@@ -70,7 +72,7 @@ module RedmineAttachmentCategories
       end #self
 
 
-      module InstanceMethods    
+      module InstanceMethods
 
           # ------------------------------------------------------------------------------#
           # Generates a link to an attachment.
@@ -96,11 +98,11 @@ module RedmineAttachmentCategories
           end
 
        end #module
-      
+
        module ClassMethods
 
        end #module
-      
+
     end #module
   end #module
 end #module
