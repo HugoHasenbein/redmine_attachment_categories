@@ -66,6 +66,7 @@ Click Attachment Categories and edit existing categories or create new one by pr
 ### Change-Log* 
 
 **2.0.0** compatible with redmine 4+
+
 **1.0.3** enhanced compatibility with my other plugins
 
 **1.0.2** Cosmetic fixes
