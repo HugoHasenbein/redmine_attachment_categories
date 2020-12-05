@@ -66,5 +66,7 @@ Click Attachment Categories and edit existing categories or create new one by pr
 ### Change-Log* 
 
 **1.0.3** enhanced compatibility with my other plugins
+
 **1.0.2** Cosmetic fixes
+
 **1.0.1** Running on Redmine 3.4.6
