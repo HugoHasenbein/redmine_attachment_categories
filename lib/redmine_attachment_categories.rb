@@ -20,18 +20,28 @@
 #
 
 Rails.configuration.to_prepare do
-
-  # redmine core plugin
+  
+  #------------------------------------------------------------------------------------- #
+  # patch redmine core plugin
+  #------------------------------------------------------------------------------------- #
   require 'redmine_attachment_categories/patches/acts_as_attachable_patch'
-
-  # patch helpers and controllers  
+  
+  #------------------------------------------------------------------------------------- #
+  # patch helpers and controllers 
+  #------------------------------------------------------------------------------------- #
   require 'redmine_attachment_categories/patches/application_helper_patch'  
   require 'redmine_attachment_categories/patches/attachment_patch'
   require 'redmine_attachment_categories/patches/attachments_controller_patch'
   require 'redmine_attachment_categories/patches/auto_completes_controller_patch'
    
-  # link hooks
+  #------------------------------------------------------------------------------------- #
+  # hooks 
+  #------------------------------------------------------------------------------------- #
   require 'redmine_attachment_categories/hooks/layout_base_hook'
 
+  #------------------------------------------------------------------------------------- #
+  # utilities 
+  #------------------------------------------------------------------------------------- #
+  require 'redmine_attachment_categories/lib/rac_file'
 end
 

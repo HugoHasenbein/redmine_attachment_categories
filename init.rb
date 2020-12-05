@@ -18,6 +18,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
+#
+# 1.0.3
+#        runing on redmine 3.4.x
+#
+# 2.0.0 
+#        runing on redmine 4.x
 
 require 'redmine'
 
@@ -25,30 +31,32 @@ Redmine::Plugin.register :redmine_attachment_categories do
   name 'Attachment Categories'
   author 'Stephan Wenzel'
   description 'This is a plugin for Redmine for having a category tag on attachments'
-  version '1.0.3'
+  version '2.0.0'
   url 'https://github.com/HugoHasenbein/redmine_attachment_categories'
   author_url 'https://github.com/HugoHasenbein/redmine_attachment_categories'
   
-  # global style setting
-  settings :default => {'attachment_category_style' 	=> 'attachment_category_default'
+#-----------------------------------------------------------------------------------------
+# Plugin setting
+#-----------------------------------------------------------------------------------------
+  settings :default => {'attachment_category_style'     => 'attachment_category_default'
                         },
            :partial => 'settings/redmine_attachment_categories/plugin_settings'
-
-  # this adds attachment categories to the administration menu
+           
+#-----------------------------------------------------------------------------------------
+# Menus
+#-----------------------------------------------------------------------------------------
   menu :admin_menu, 
        :attachment_categories, # name and id
        { controller: 'attachment_categories', action: 'index' },
        after:   :enumerations, 
-  	   html:    { class: 'icon icon-attachment' },
+       html:    { class: 'icon icon-attachment' },
        caption: :label_attachment_category_plural
-
-  # permissions 
-  project_module :redmine_attachment_categories do
-
-  end
-
+       
 end
 
+#---------------------------------------------------------------------------------------
+# Plugin Library
+#---------------------------------------------------------------------------------------
 require 'redmine_attachment_categories'
 
 

@@ -1,5 +1,5 @@
 <%= raw @descriptions.map {|description| {
-      'value' => description
+      'value' => description[0]
       }
     }.to_json
 %>

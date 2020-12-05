@@ -5,7 +5,7 @@
   _yellow_category  = AttachmentCategory.new(:name => l(:label_yellow_category),:html_color => "#FFFFCC")
 %>
 
-<fieldset class="box tabular"><legend><%= l(:label_configure_attchment_category_style)%></legend>
+<fieldset><legend><%= l(:label_configure_attachment_category_style)%></legend>
 <p>
   <label><%= l(:label_setting_default_tag) %></label>
   <%= radio_button_tag 'settings[attachment_category_style]', "attachment_category_style_default", settings['attachment_category_style'] == 'attachment_category_style_default' %><br />
@@ -22,4 +22,11 @@
   <%= l(:label_example_text) %><%= attachment_category_tag( _blue_category    , :span, {:class => "attachment_category attachment_category_style_other"} ) %><br />
   <%= l(:label_example_text) %><%= attachment_category_tag( _yellow_category  , :span, {:class => "attachment_category attachment_category_style_other"} ) %>
 </p>
+</fieldset>
+
+<fieldset><legend><%= l(:label_configure_attachment_archive_dir_field)%></legend>
+  <p>
+    <label><%= l(:label_custom_field_name) %></label>
+    <%= text_field_tag 'settings[custom_field_name]', settings['custom_field_name'] %>
+  </p>
 </fieldset>

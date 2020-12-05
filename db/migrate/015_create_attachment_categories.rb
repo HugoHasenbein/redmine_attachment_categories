@@ -19,26 +19,58 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
-class CreateAttachmentCategories < ActiveRecord::Migration
+if Redmine::VERSION::MAJOR >= 4
 
-  def self.up
-    create_table :attachment_categories do |t|
-      t.column :name,       :string,  :limit => 60, :default => "",        :null => false
-      t.column :html_color, :string,  :limit => 7,  :default => "#FFFFFF", :null => false
-      t.column :position,   :integer, :default => nil
-    end
-    attachment_categories = [
-      ["Category A", "#FFCCCC"],
-      ["Category B", "#CCFFCC"],
-      ["Category C", "#CCCCFF"],
-      ["Category D", "#FFCCFF"]
-    ]
-    attachment_categories.each do |name, html_color|
-      AttachmentCategory.create(:name => name, :html_color => html_color)
-    end
-  end
+  class CreateAttachmentCategories < ActiveRecord::Migration[5.1]
+  
+    def self.up
+      create_table :attachment_categories do |t|
+        t.column :name,       :string,  :limit => 60, :default => "",        :null => false
+        t.column :html_color, :string,  :limit => 7,  :default => "#FFFFFF", :null => false
+        t.column :position,   :integer, :default => nil
+      end
+      attachment_categories = [
+        ["Category A", "#FFCCCC"],
+        ["Category B", "#CCFFCC"],
+        ["Category C", "#CCCCFF"],
+        ["Category D", "#FFCCFF"]
+      ]
+      attachment_categories.each do |name, html_color|
+        AttachmentCategory.create(:name => name, :html_color => html_color)
+      end
+    end #def
+  
+    def self.down
+      drop_table :attachment_categories
+    end #def
+    
+  end #class
 
-  def self.down
-    drop_table :attachment_categories
-  end
+else
+
+  class CreateAttachmentCategories < ActiveRecord::Migration
+  
+    def self.up
+      create_table :attachment_categories do |t|
+        t.column :name,       :string,  :limit => 60, :default => "",        :null => false
+        t.column :html_color, :string,  :limit => 7,  :default => "#FFFFFF", :null => false
+        t.column :position,   :integer, :default => nil
+      end
+      attachment_categories = [
+        ["Category A", "#FFCCCC"],
+        ["Category B", "#CCFFCC"],
+        ["Category C", "#CCCCFF"],
+        ["Category D", "#FFCCFF"]
+      ]
+      attachment_categories.each do |name, html_color|
+        AttachmentCategory.create(:name => name, :html_color => html_color)
+      end
+    end #def
+  
+    def self.down
+      drop_table :attachment_categories
+    end #def
+    
+  end #class
+
 end

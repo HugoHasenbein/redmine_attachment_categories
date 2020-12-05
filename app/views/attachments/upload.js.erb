@@ -1,20 +1,19 @@
 <%-
-  _file_or_thumbnail = j content_tag( 
-	:div, 
-	@attachment.thumbnailable? ? 
-	  thumbnail_tag( @attachment ) : 
-	  attachment_category_tag( @attachment.attachment_category, :span ),
-	{:class => "attachment_categories_column",
-	 :style => "width:#{Setting.thumbnails_size.to_i*2}px;float:left;word-break:break-all;"
-	} 
-  )
-  
   _all_categories = AttachmentCategory.all.collect { |p| [p.name, p.id]} 
   
-  _select_tag = j select_tag( 
+  _attachment_tag  = @attachment.thumbnailable? ? thumbnail_tag( @attachment ) : attachment_category_tag( @attachment.attachment_category, :span )
+  _category_select = select_tag( 
     "attachments[#{j params[:attachment_id]}][attachment_category_id]", 
     options_for_select( [['', '']] + _all_categories, @attachment.attachment_category_id), 
     :onchange => "changeCategoryColor(this, '#attachments_#{params[:attachment_id]}')"
+  )
+      
+  _file_or_thumbnail = j content_tag( 
+    :div, 
+    _attachment_tag + tag(:br) + _category_select,
+    {:class => "attachment_categories_column",
+     :style => "width:#{Setting.thumbnails_size.to_i*2}px;float:left;word-break:break-all;"
+    }
   )
   
 %>
@@ -28,24 +27,22 @@ var fileSpan = $('#attachments_<%= j params[:attachment_id] %>');
 
   fileSpan.find('input.token').val('<%= j @attachment.token %>');
   fileSpan.find('a.remove-upload') 
-	.attr({
-	  "data-remote": true,
-	  "data-method": 'delete',
-	  "style": "",
-	  href: '<%= j attachment_path(@attachment, :attachment_id => params[:attachment_id], :format => 'js') %>'
-	})
-	.off('click');
-
-  fileSpan.attr("style", "display:block;" );
+    .attr({
+      "data-remote": true,
+      "data-method": 'delete',
+      "style": "",
+      href: '<%= j attachment_path(@attachment, :attachment_id => params[:attachment_id], :format => 'js') %>'
+    })
+    .off('click');
+    
+  fileSpan.attr("style", "display:inline-block;" );
   fileSpan.prepend('<%= _file_or_thumbnail %>');
-  fileSpan.append('<%= _select_tag %>' );
-  fileSpan.append('<%= content_tag(:div, "", :style => "clear: both;") %>' );
   fileSpan.find('input.description').attr("id", '<%= "attachments_p#{j params[:attachment_id]}_description" %>');
   
   observeAutocompleteField('<%= "attachments_p#{j params[:attachment_id]}_description" %>', '<%= "#{auto_complete_attachment_descriptions_path}" %>');
   changeCategoryColor($('<%= "#attachments_#{j params[:attachment_id]}_attachment_category_id" %>'), '<%= "#attachments_#{params[:attachment_id]}" %>');
 
-	
+    
 <% end %>
 
 

@@ -21,65 +21,88 @@
 
 class AttachmentCategoriesController < ApplicationController
 
+  ########################################################################################
+  #
+  # constants
+  #
+  ########################################################################################
   layout 'admin'
   self.main_menu = false
-
-  before_filter :require_admin, :except => :index
-  before_filter :require_admin_or_api_request, :only => :index
+  
+  ########################################################################################
+  #
+  # callbacks
+  #
+  ########################################################################################
+  before_action   :require_admin,                :except => [:index]
+  before_action   :require_admin_or_api_request, :only   => [:index]
+  before_action   :find_attachment_category,     :only   => [:edit, :update, :destroy]
   accept_api_auth :index
-
+  
+  ########################################################################################
+  #
+  # standard controller functions
+  #
+  ########################################################################################
   def index
     @attachment_categories = AttachmentCategory.sorted.to_a
     respond_to do |format|
       format.html { render :layout => false if request.xhr? }
       format.api
     end
-  end
+  end #def
 
   def new
     @attachment_category = AttachmentCategory.new
-  end
+  end #def
 
   def create
-    @attachment_category = AttachmentCategory.new(params[:attachment_category])
+    @attachment_category = AttachmentCategory.new
+    @attachment_category.safe_attributes= params[:attachment_category]
     if @attachment_category.save
       flash[:notice] = l(:notice_successful_create)
       redirect_to attachment_categories_path
     else
       render :action => 'new'
     end
-  end
-
+  end #def
+  
   def edit
-    @attachment_category = AttachmentCategory.find(params[:id])
-  end
-
+  end #def
+  
   def update
-    @attachment_category = AttachmentCategory.find(params[:id])
-    if @attachment_category.update_attributes(params[:attachment_category])
+    @attachment_category.safe_attributes= params[:attachment_category]
+    if @attachment_category.save
       respond_to do |format|
         format.html {
           flash[:notice] = l(:notice_successful_update)
           redirect_to attachment_categories_path(:page => params[:page])
         }
-        format.js { render :nothing => true }
+        format.js { head 200 }
       end
     else
       respond_to do |format|
         format.html { render :action => 'edit' }
-        format.js { render :nothing => true, :status => 422 }
+        format.js   { head 422 }
       end
     end
-  end
-
+  end #def
+  
   def destroy
-    AttachmentCategory.find(params[:id]).destroy
-    redirect_to attachment_categories_path
+    begin
+      @attachment_category.destroy
+    rescue Exception => e
+      flash[:error] = e.message
+    end
   rescue
-    flash[:error] = l(:error_unable_delete_attachment_category)
     redirect_to attachment_categories_path
-  end
-
+  end #def
+  
+  ########################################################################################
+  #
+  # attachment category specific functions
+  #
+  ########################################################################################
   def update_attachment_color
     if request.post? && AttachmentCategory.update_attachment_colors
       flash[:notice] = l(:notice_attachment_colors_updated)
@@ -87,5 +110,19 @@ class AttachmentCategoriesController < ApplicationController
       flash[:error] =  l(:error_attachment_colors_not_updated)
     end
     redirect_to attachment_categories_path
-  end
+  end #def
+  
+  ########################################################################################
+  #
+  # private
+  #
+  ########################################################################################
+  private
+  
+  def find_attachment_category
+    @attachment_category  = AttachmentCategory.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render_404
+  end #def
+  
 end

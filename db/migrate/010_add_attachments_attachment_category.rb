@@ -19,12 +19,31 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
-class AddAttachmentsAttachmentCategory < ActiveRecord::Migration
-  def self.up
-    add_column :attachments, :attachment_category_id, :integer
+if Redmine::VERSION::MAJOR >= 4
+
+  class AddAttachmentsAttachmentCategory < ActiveRecord::Migration[5.1]
+  
+    def self.up
+      add_column :attachments, :attachment_category_id, :integer
+    end
+    
+    def self.down
+      remove_column :attachments, :attachment_category_id
+    end
   end
 
-  def self.down
-    remove_column :attachments, :attachment_category_id
+else
+
+  class AddAttachmentsAttachmentCategory < ActiveRecord::Migration
+  
+    def self.up
+      add_column :attachments, :attachment_category_id, :integer
+    end
+    
+    def self.down
+      remove_column :attachments, :attachment_category_id
+    end
   end
+  
 end
+

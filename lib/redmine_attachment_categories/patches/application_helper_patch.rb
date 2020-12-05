@@ -22,17 +22,26 @@
 module RedmineAttachmentCategories
   module Patches 
     module ApplicationHelperPatch
-
+    
       def self.included(base)
         base.extend(ClassMethods)
         base.send(:include, InstanceMethods)
         base.class_eval do
-
+        
           unloadable 
-          alias_method_chain :thumbnail_tag, :attachment_category
-          alias_method_chain :link_to_attachment, :attachment_category
-
-
+          
+          if Rails::VERSION::MAJOR >= 5
+          
+            alias_method :thumbnail_tag_without_attachment_category, :thumbnail_tag
+            alias_method :thumbnail_tag, :thumbnail_tag_with_attachment_category
+            
+            alias_method :link_to_attachment_without_attachment_category, :link_to_attachment
+            alias_method :link_to_attachment, :link_to_attachment_with_attachment_category
+          else
+            alias_method_chain :thumbnail_tag, :attachment_category
+            alias_method_chain :link_to_attachment, :attachment_category
+          end
+          
           # ------------------------------------------------------------------------------#
           # creates an attachment_category_tag
           # ------------------------------------------------------------------------------#
@@ -52,7 +61,7 @@ module RedmineAttachmentCategories
             end 
             _tag.html_safe
           end #def
-
+          
           # ------------------------------------------------------------------------------#
           # calculates black or white font-color for a given background color
           # ------------------------------------------------------------------------------#
@@ -64,14 +73,13 @@ module RedmineAttachmentCategories
               "black"
             end
           end #def
-
+          
         end #base
-
+        
       end #self
-
-
-      module InstanceMethods    
-
+      
+      module InstanceMethods
+      
           # ------------------------------------------------------------------------------#
           # Generates a link to an attachment.
           # Options:
@@ -94,11 +102,11 @@ module RedmineAttachmentCategories
           def thumbnail_tag_with_attachment_category(attachment, options={})
             thumbnail_tag_without_attachment_category(attachment) + ( options.key?(:no_attribute_tag) ? "" : "<br />".html_safe + attachment_category_tag(attachment.attachment_category, :span) )
           end
-
+          
        end #module
       
        module ClassMethods
-
+       
        end #module
       
     end #module

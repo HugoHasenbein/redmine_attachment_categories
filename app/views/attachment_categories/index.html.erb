@@ -5,8 +5,8 @@
 </div>
 <div class="contextual">
   <%= link_to l(:label_attachment_category_new),
-  				new_attachment_category_path, 
-  				:class => 'icon icon-add' %>
+                  new_attachment_category_path, 
+                  :class => 'icon icon-add' %>
 </div>
 
 <h2><%=l(:label_attachment_category_plural)%></h2>
@@ -16,37 +16,37 @@
 <% else %>
   <div class="attachment_category_box">
   <table class="list attachment_categories">
-	<thead><tr>
-	<th><%=l(:field_name)%></th>
-	<th><%=l(:field_html_color)%></th>
-	<th><%=l(:label_attachments_this_category)%></th>
-	<th></th>
-	</tr></thead>
-	<tbody>
+    <thead><tr>
+    <th><%=l(:field_name)%></th>
+    <th><%=l(:field_html_color)%></th>
+    <th><%=l(:label_attachments_this_category)%></th>
+    <th></th>
+    </tr></thead>
+    <tbody>
   <% for attachment_category in @attachment_categories %>
-	<tr class="<%= cycle("odd", "even") %>">
-	<td class="category"><%= link_to attachment_category.name, edit_attachment_category_path(attachment_category) %></td>
-	<td class="tag"><%= attachment_category_tag(attachment_category, :span) %></td>
-	<td class="count"><%= attachment_category.attachments.length %></td>
-	<td class="buttons">
-	  <%= reorder_handle(attachment_category) %>
-	  <%= delete_link attachment_category_path(attachment_category) %>
-	</td>
-	</tr>
+    <tr class="<%= cycle("odd", "even") %>">
+    <td class="category"><%= link_to attachment_category.name, edit_attachment_category_path(attachment_category) %></td>
+    <td class="tag"><%= attachment_category_tag(attachment_category, :span) %></td>
+    <td class="count"><%= attachment_category.attachments.length %></td>
+    <td class="buttons">
+      <%= reorder_handle(attachment_category) %>
+      <%= delete_link attachment_category_path(attachment_category) %>
+    </td>
+    </tr>
   <% end %>
-	<tr class="<%= cycle("odd", "even") %>">
-	<td class="category"><%= l(:label_other) %></td>
-	<td class="color"><%= l(:label_uncategorized) %></td>
-	<td class="count"><%= uncategorized_attachments_count %></td>
-	<td class="buttons">&nbsp;</td>
-	</tr>
-	<tr class="<%= cycle("odd", "even") %>">
-	<td class="total"><%=l(:label_total)%></td>
-	<td class="color"><div>&nbsp;</div></td>
-	<td class="allcount"><%= Attachment.count %></td>
-	<td class="buttons">&nbsp;</td>
-	</tr>
-	</tbody>
+    <tr class="<%= cycle("odd", "even") %>">
+    <td class="category"><%= l(:label_other) %></td>
+    <td class="color"><%= l(:label_uncategorized) %></td>
+    <td class="count"><%= uncategorized_attachments_count %></td>
+    <td class="buttons">&nbsp;</td>
+    </tr>
+    <tr class="<%= cycle("odd", "even") %>">
+    <td class="total"><%=l(:label_total)%></td>
+    <td class="color"><div>&nbsp;</div></td>
+    <td class="allcount"><%= Attachment.count %></td>
+    <td class="buttons">&nbsp;</td>
+    </tr>
+    </tbody>
   </table>
   </div>
 <%- end %>

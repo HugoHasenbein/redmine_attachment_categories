@@ -24,31 +24,31 @@ module RedmineAttachmentCategories
     module AutoCompletesControllerPatch
       def self.included(base)
         base.send(:include, InstanceMethods)
-
+        
         base.class_eval do
           unloadable
-          skip_before_filter :find_project, :only => [:attachment_descriptions]
+          skip_before_action :find_project, :only => [:attachment_descriptions]
         end
       end
-
+      
       module InstanceMethods
-
+      
         def attachment_descriptions
           @attachments= []
-		  q = (params[:q] || params[:term]).to_s.strip
-		  if q.present?
-			if q.match(/.*/)
-			  @descriptions = Attachment.
-			                    distinct.
-			                    where(:container_type => "Issue").
-			                    where("description like ?", "%#{q}%").
-			                    order(:created_on => :desc).
-			                    limit(20).
-			                    pluck(:description).
-			                    to_a
-			end
-			@attachments.compact!
-		  end
+          q = (params[:q] || params[:term]).to_s.strip
+          if q.present?
+            if q.match(/.*/)
+              @descriptions = Attachment.
+                                distinct.
+                                where(:container_type => "Issue").
+                                where("description like ?", "%#{q}%").
+                                order(:created_on => :desc).
+                                limit(20).
+                                pluck(:description, :created_on).
+                                to_a
+            end
+            @attachments.compact!
+          end
           render :layout => false 
         end #def
          
@@ -56,7 +56,6 @@ module RedmineAttachmentCategories
     end #module
   end #module
 end #module
-
 
 unless AutoCompletesController.included_modules.include?(RedmineAttachmentCategories::Patches::AutoCompletesControllerPatch)
     AutoCompletesController.send(:include, RedmineAttachmentCategories::Patches::AutoCompletesControllerPatch)

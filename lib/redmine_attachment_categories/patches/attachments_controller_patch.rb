@@ -24,23 +24,24 @@ module RedmineAttachmentCategories
     module AttachmentsControllerPatch
       def self.included(base)
         base.send(:include, InstanceMethods)
-
+        
         base.class_eval do
           unloadable
             
           alias_method   :update_all_params, :update_all_params_with_attachment_category_id
-
+          
         end #base
         
       end #self
-
+      
       module InstanceMethods
       
-		# Returns attachments param for #update_all
-		def update_all_params_with_attachment_category_id
-		  params.permit(:attachments => [:filename, :description, :attachment_category_id]).require(:attachments)
-		end #def
-
+        # Returns attachments param for #update_all
+        def update_all_params_with_attachment_category_id
+          {:archive    => params.permit(:archive), 
+          :attachments => params.permit(:attachments => [:filename, :description, :attachment_category_id]).require(:attachments)}
+        end #def
+        
       end #module      
     end #module
   end #module

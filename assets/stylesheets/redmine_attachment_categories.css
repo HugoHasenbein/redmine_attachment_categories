@@ -6,6 +6,11 @@ div.attachment_categories_column {
     font-family: "Trebuchet MS", Verdana, sans-serif;
 }
 
+.attachments_fields input.description {
+    margin-left: 4px;
+    width: unset;
+}
+
 .attachment_category_style_default {
     position: relative;
     bottom: 2px;

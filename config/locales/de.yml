@@ -19,34 +19,50 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
-# German translations for Ruby on Rails
 de:
-
-  # settings
-  label_configure_attchment_category_style: "Etiketten-Stil auswählen"
-  label_setting_default_tag: "Standard"
-  label_setting_other_tag: "Anderer Stil"
+  #------------------------------------------------------------------------------------- #
+  # Labels: settings
+  #------------------------------------------------------------------------------------- #
+  label_configure_attachment_category_style:     "Etiketten-Stil auswählen"
+  label_setting_default_tag:                     "Standard"
+  label_setting_other_tag:                       "Anderer Stil"
+  label_configure_attachment_archive_dir_field:  "Benutzerfeld-Name für Ordner zum Archivieren"
+  label_custom_field_name:                       "Name Benutzerfeld"
   
-  label_example_text: "Beispieltext"
-  label_red_category: "Rote Kategorie"
-  label_green_category: "Grüne Kategorie"
-  label_blue_category: "Blaue Kategorie"
-  label_yellow_category: "Gelbe Kategorie"
-
-  # for use in attachments categories administration
-  label_attachments_categories_edit: "Attachment Kategorien"
-  label_attachment_category_plural: "Attachment Kategorien"
-  label_attachment_category_new: "Neue Kategorie"
-  label_attachments_this_category: "Kategorisiert"
-  label_no_categories_defined: "keine Kategorien definiert"
-  label_create_categories: "Kategorien definieren"
-  label_other: "(Andere)"
-  label_uncategorized: "(ohne Tag)"
+  label_example_text:                            "Beispieltext"
+  label_red_category:                            "Rote Kategorie"
+  label_green_category:                          "Grüne Kategorie"
+  label_blue_category:                           "Blaue Kategorie"
+  label_yellow_category:                         "Gelbe Kategorie"
+  
+  #------------------------------------------------------------------------------------- #
+  # Labels: edit all dialogue 
+  #------------------------------------------------------------------------------------- #
+  button_archive:                                "Anhänge ablegen"
+  
+  #------------------------------------------------------------------------------------- #
+  # Labels: attachments categories administration
+  #------------------------------------------------------------------------------------- #
+  label_attachments_categories_edit:             "Attachment Kategorien"
+  label_attachment_category_plural:              "Attachment Kategorien"
+  label_attachment_category_new:                 "Neue Kategorie"
+  label_attachments_this_category:               "Kategorisiert"
+  label_no_categories_defined:                   "keine Kategorien definiert"
+  label_create_categories:                       "Kategorien definieren"
+  label_other:                                   "(Andere)"
+  label_uncategorized:                           "(ohne Tag)"
  
-  field_html_color: "Tag (Etikett)"
-  field_attachment_category: "Kategorie" #needed for other plugins (i.e. Redmine Issue Attachments)
-  error_unable_delete_attachment_category: "Kategorie konnte wegen eines Fehlers nicht gelöscht werden"
-  notice_attachment_colors_not_updated: "Attachment-Farben wurden nicht aktualisiert"
-  notice_attachment_colors_updated: "Attachment-Farben wurden aktualisiert"
+  #------------------------------------------------------------------------------------- #
+  # Fields
+  #------------------------------------------------------------------------------------- #
+  field_html_color:                              "Tag (Etikett)"
+  field_attachment_category:                     "Kategorie" #needed for other plugins (i.e. Redmine Issue Attachments)
+  
+  #------------------------------------------------------------------------------------- #
+  # Messages
+  #------------------------------------------------------------------------------------- #
+  error_unable_delete_attachment_category:       "Kategorie konnte wegen eines Fehlers nicht gelöscht werden"
+  notice_attachment_colors_not_updated:          "Attachment-Farben wurden nicht aktualisiert"
+  notice_attachment_colors_updated:              "Attachment-Farben wurden aktualisiert"
 
 
