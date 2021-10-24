@@ -37,9 +37,13 @@ module RedmineAttachmentCategories
             
             alias_method :link_to_attachment_without_attachment_category, :link_to_attachment
             alias_method :link_to_attachment, :link_to_attachment_with_attachment_category
+
+            alias_method :format_object_without_attachment_category, :format_object
+            alias_method :format_object, :format_object_with_attachment_category
           else
             alias_method_chain :thumbnail_tag, :attachment_category
             alias_method_chain :link_to_attachment, :attachment_category
+            alias_method_chain :format_object, :attachment_category
           end
           
           # ------------------------------------------------------------------------------#
@@ -88,11 +92,54 @@ module RedmineAttachmentCategories
           # ------------------------------------------------------------------------------#
           def link_to_attachment_with_attachment_category(attachment, options={})
             text = options.delete(:text) || attachment.filename
-            route_method = options.delete(:download) ? :download_named_attachment_url : :named_attachment_url
-            html_options = options.slice!(:only_path)
-            options[:only_path] = true unless options.key?(:only_path)
-            url = send(route_method, attachment, attachment.filename, options)
-            link_to( text, url, html_options) + (route_method == :download_named_attachment_url ? "" : attachment_category_tag(attachment.attachment_category,:span))
+            if Redmine::VERSION.to_a[0] >= 4
+              if options.delete(:download)
+                route_method = :download_named_attachment_url
+                options[:filename] = attachment.filename
+              else
+                route_method = :attachment_url
+                # make sure we don't have an extraneous :filename in the options
+                options.delete(:filename)
+              end
+              html_options = options.slice!(:only_path, :filename)
+              options[:only_path] = true unless options.key?(:only_path)
+              url = send(route_method, attachment, options)
+            else
+              route_method = options.delete(:download) ? :download_named_attachment_url : :named_attachment_url
+              html_options = options.slice!(:only_path)
+              options[:only_path] = true unless options.key?(:only_path)
+              url = send(route_method, attachment, attachment.filename, options)
+            end
+            link_to(text, url, html_options) + (route_method == :download_named_attachment_url ? "" : attachment_category_tag(attachment.attachment_category,:span))
+          end
+
+          def format_object_with_attachment_category(object, html=true, &block)
+            if block_given?
+              object = yield object
+            end
+            case object.class.name
+            when 'Attachment'
+              if Redmine::VERSION.to_a[0] >= 4 && Redmine::VERSION.to_a[1] >= 2
+                if html
+                  content_tag(
+                    :span,
+                    link_to_attachment_without_attachment_category(object) +
+                    link_to_attachment_without_attachment_category(
+                      object,
+                      :class => ['icon-only', 'icon-download'],
+                      :title => l(:button_download),
+                      :download => true
+                    )
+                  )
+                else
+                  object.filename
+                end
+              else
+                html ? link_to_attachment_without_attachment_category(object) : object.filename
+              end
+            else
+              format_object_without_attachment_category(object, html, &block)
+            end
           end
 
           # ------------------------------------------------------------------------------#
