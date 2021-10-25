@@ -32,6 +32,7 @@ Rails.configuration.to_prepare do
   require 'redmine_attachment_categories/patches/application_helper_patch'  
   require 'redmine_attachment_categories/patches/attachment_patch'
   require 'redmine_attachment_categories/patches/attachments_controller_patch'
+  require 'redmine_attachment_categories/patches/attachments_helper_patch'
   require 'redmine_attachment_categories/patches/auto_completes_controller_patch'
    
   #------------------------------------------------------------------------------------- #
